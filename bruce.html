@@ -1,0 +1,1111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bruce Animation Studios — Drawn to Life</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=DM+Sans:wght@300;400;500;600&family=Caveat:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #0d0b0e;
+    --parchment: #f5f0e8;
+    --gold: #c9a84c;
+    --gold-light: #e4cc7a;
+    --gold-dark: #9a7a2e;
+    --warm-gray: #2a2428;
+    --warm-gray-light: #3d3640;
+    --cream: #ede6d8;
+    --rust: #b85c3a;
+    --text-body: #d4cfc5;
+    --text-muted: #8a8480;
+  }
+
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--ink);
+    color: var(--text-body);
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ─── GRAIN OVERLAY ─── */
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 9999;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    background-repeat: repeat;
+    opacity: 0.5;
+  }
+
+  /* ─── NAV ─── */
+  nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    padding: 1.5rem 3rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: linear-gradient(180deg, rgba(13,11,14,0.95) 0%, rgba(13,11,14,0) 100%);
+    transition: all 0.4s ease;
+  }
+
+  nav.scrolled {
+    background: rgba(13,11,14,0.97);
+    backdrop-filter: blur(12px);
+    padding: 1rem 3rem;
+    box-shadow: 0 1px 0 rgba(201,168,76,0.1);
+  }
+
+  .nav-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--parchment);
+    letter-spacing: 0.05em;
+    text-decoration: none;
+  }
+
+  .nav-logo span {
+    color: var(--gold);
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 2.5rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    transition: color 0.3s ease;
+    position: relative;
+  }
+
+  .nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background: var(--gold);
+    transition: width 0.3s ease;
+  }
+
+  .nav-links a:hover { color: var(--gold); }
+  .nav-links a:hover::after { width: 100%; }
+
+  /* ─── HERO ─── */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 6rem 2rem 4rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 60% 50% at 50% 40%, rgba(201,168,76,0.06) 0%, transparent 70%),
+      radial-gradient(ellipse 80% 60% at 30% 70%, rgba(184,92,58,0.04) 0%, transparent 60%);
+    pointer-events: none;
+  }
+
+  /* Animated pencil line decorations */
+  .hero-line {
+    position: absolute;
+    background: var(--gold);
+    opacity: 0.12;
+    border-radius: 2px;
+  }
+
+  .hero-line-1 {
+    top: 20%;
+    left: 5%;
+    width: 120px;
+    height: 1px;
+    animation: drawLine 2s ease-out 0.8s both;
+  }
+
+  .hero-line-2 {
+    top: 75%;
+    right: 8%;
+    width: 80px;
+    height: 1px;
+    animation: drawLine 1.5s ease-out 1.2s both;
+  }
+
+  .hero-line-3 {
+    bottom: 15%;
+    left: 12%;
+    width: 60px;
+    height: 1px;
+    transform: rotate(-30deg);
+    animation: drawLine 1.8s ease-out 1s both;
+  }
+
+  @keyframes drawLine {
+    from { transform: scaleX(0); opacity: 0; }
+    to { transform: scaleX(1); opacity: 0.12; }
+  }
+
+  .hero-pretitle {
+    font-family: 'Caveat', cursive;
+    font-size: 1.3rem;
+    color: var(--gold);
+    margin-bottom: 1.5rem;
+    opacity: 0;
+    animation: fadeUp 0.8s ease-out 0.3s both;
+  }
+
+  .hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(3rem, 8vw, 7rem);
+    font-weight: 900;
+    color: var(--parchment);
+    line-height: 1.05;
+    max-width: 900px;
+    opacity: 0;
+    animation: fadeUp 1s ease-out 0.5s both;
+  }
+
+  .hero-title em {
+    font-style: italic;
+    color: var(--gold);
+    display: inline-block;
+    position: relative;
+  }
+
+  .hero-title em::after {
+    content: '';
+    position: absolute;
+    bottom: 0.05em;
+    left: -2%;
+    right: -2%;
+    height: 2px;
+    background: var(--gold);
+    opacity: 0.4;
+    animation: drawLine 1s ease-out 1.5s both;
+    transform-origin: left;
+  }
+
+  .hero-subtitle {
+    font-size: 1.15rem;
+    font-weight: 300;
+    color: var(--text-muted);
+    margin-top: 2rem;
+    max-width: 540px;
+    line-height: 1.7;
+    opacity: 0;
+    animation: fadeUp 0.8s ease-out 0.8s both;
+  }
+
+  .hero-cta-group {
+    display: flex;
+    gap: 1.25rem;
+    margin-top: 3rem;
+    opacity: 0;
+    animation: fadeUp 0.8s ease-out 1s both;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.9rem 2.2rem;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    transition: all 0.35s ease;
+    border-radius: 2px;
+  }
+
+  .btn-primary {
+    background: var(--gold);
+    color: var(--ink);
+  }
+
+  .btn-primary:hover {
+    background: var(--gold-light);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(201,168,76,0.25);
+  }
+
+  .btn-ghost {
+    background: transparent;
+    color: var(--parchment);
+    border: 1px solid rgba(245,240,232,0.2);
+  }
+
+  .btn-ghost:hover {
+    border-color: var(--gold);
+    color: var(--gold);
+  }
+
+  .hero-scroll {
+    position: absolute;
+    bottom: 2.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--text-muted);
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    opacity: 0;
+    animation: fadeUp 0.8s ease-out 1.4s both;
+  }
+
+  .hero-scroll .scroll-line {
+    width: 1px;
+    height: 40px;
+    background: linear-gradient(180deg, var(--gold) 0%, transparent 100%);
+    animation: scrollPulse 2s ease-in-out infinite;
+  }
+
+  @keyframes scrollPulse {
+    0%, 100% { opacity: 0.3; transform: scaleY(0.7); }
+    50% { opacity: 1; transform: scaleY(1); }
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ─── SECTIONS ─── */
+  section {
+    padding: 7rem 2rem;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .section-label {
+    font-family: 'Caveat', cursive;
+    font-size: 1.1rem;
+    color: var(--gold);
+    margin-bottom: 0.75rem;
+  }
+
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 700;
+    color: var(--parchment);
+    margin-bottom: 2rem;
+    line-height: 1.2;
+  }
+
+  .divider {
+    width: 60px;
+    height: 2px;
+    background: var(--gold);
+    margin: 0 0 3rem 0;
+    opacity: 0.6;
+  }
+
+  /* ─── MISSION ─── */
+  .mission {
+    position: relative;
+  }
+
+  .mission-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: start;
+  }
+
+  .mission-text p {
+    font-size: 1.05rem;
+    line-height: 1.85;
+    margin-bottom: 1.5rem;
+    font-weight: 300;
+  }
+
+  .mission-text p:first-of-type::first-letter {
+    font-family: 'Playfair Display', serif;
+    font-size: 3.5rem;
+    float: left;
+    line-height: 1;
+    margin-right: 0.5rem;
+    color: var(--gold);
+    font-weight: 700;
+  }
+
+  .mission-quote {
+    border-left: 2px solid var(--gold);
+    padding: 2rem 2.5rem;
+    background: rgba(201,168,76,0.03);
+    margin-top: 1rem;
+  }
+
+  .mission-quote blockquote {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.35rem;
+    font-style: italic;
+    color: var(--cream);
+    line-height: 1.6;
+    margin-bottom: 1rem;
+  }
+
+  .mission-quote cite {
+    font-family: 'Caveat', cursive;
+    font-size: 1.1rem;
+    color: var(--gold);
+    font-style: normal;
+  }
+
+  .mission-values {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .value-card {
+    padding: 2rem;
+    background: rgba(255,255,255,0.02);
+    border: 1px solid rgba(201,168,76,0.08);
+    border-radius: 3px;
+    transition: all 0.4s ease;
+  }
+
+  .value-card:hover {
+    border-color: rgba(201,168,76,0.25);
+    background: rgba(201,168,76,0.04);
+    transform: translateX(6px);
+  }
+
+  .value-card h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.15rem;
+    color: var(--parchment);
+    margin-bottom: 0.6rem;
+  }
+
+  .value-card .value-number {
+    font-family: 'Caveat', cursive;
+    font-size: 1.6rem;
+    color: var(--gold);
+    opacity: 0.5;
+    float: right;
+    margin-top: -0.25rem;
+  }
+
+  .value-card p {
+    font-size: 0.95rem;
+    line-height: 1.7;
+    color: var(--text-muted);
+    font-weight: 300;
+  }
+
+  /* ─── CURRENT GOALS ─── */
+  .goals {
+    background: linear-gradient(180deg, rgba(42,36,40,0.5) 0%, rgba(13,11,14,1) 100%);
+    border-top: 1px solid rgba(201,168,76,0.08);
+    border-bottom: 1px solid rgba(201,168,76,0.08);
+    padding: 7rem 2rem;
+    max-width: 100%;
+  }
+
+  .goals-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .goals-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+    margin-top: 1rem;
+  }
+
+  .goal-item {
+    padding: 2.5rem;
+    position: relative;
+    border: 1px solid rgba(201,168,76,0.06);
+    background: rgba(13,11,14,0.6);
+    border-radius: 3px;
+    transition: all 0.4s ease;
+  }
+
+  .goal-item:hover {
+    border-color: rgba(201,168,76,0.2);
+    background: rgba(201,168,76,0.03);
+  }
+
+  .goal-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+    padding: 0.3rem 0.75rem;
+    border-radius: 2px;
+  }
+
+  .status-active {
+    color: #5ec26a;
+    background: rgba(94,194,106,0.08);
+    border: 1px solid rgba(94,194,106,0.15);
+  }
+
+  .status-active::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #5ec26a;
+    animation: pulse 2s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 0.4; }
+    50% { opacity: 1; }
+  }
+
+  .status-upcoming {
+    color: var(--gold);
+    background: rgba(201,168,76,0.08);
+    border: 1px solid rgba(201,168,76,0.15);
+  }
+
+  .goal-item h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.25rem;
+    color: var(--parchment);
+    margin-bottom: 0.75rem;
+    line-height: 1.3;
+  }
+
+  .goal-item p {
+    font-size: 0.95rem;
+    line-height: 1.7;
+    color: var(--text-muted);
+    font-weight: 300;
+  }
+
+  /* ─── SERVICES ─── */
+  .services {
+    padding: 7rem 2rem;
+    max-width: 100%;
+    background: linear-gradient(180deg, rgba(13,11,14,1) 0%, rgba(42,36,40,0.4) 50%, rgba(13,11,14,1) 100%);
+    border-top: 1px solid rgba(201,168,76,0.08);
+    border-bottom: 1px solid rgba(201,168,76,0.08);
+  }
+
+  .services-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .services-intro {
+    font-size: 1.1rem;
+    font-weight: 300;
+    line-height: 1.8;
+    max-width: 700px;
+    margin-bottom: 3.5rem;
+  }
+
+  .services-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    margin-bottom: 3.5rem;
+  }
+
+  .service-card {
+    padding: 2.5rem;
+    border: 1px solid rgba(201,168,76,0.08);
+    background: rgba(13,11,14,0.7);
+    border-radius: 3px;
+    transition: all 0.4s ease;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .service-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; bottom: 0;
+    width: 3px;
+    background: var(--gold);
+    transform: scaleY(0);
+    transition: transform 0.4s ease;
+    transform-origin: top;
+  }
+
+  .service-card:hover {
+    border-color: rgba(201,168,76,0.2);
+    background: rgba(201,168,76,0.03);
+  }
+
+  .service-card:hover::before {
+    transform: scaleY(1);
+  }
+
+  .service-card .service-tag {
+    font-family: 'Caveat', cursive;
+    font-size: 1rem;
+    color: var(--gold);
+    opacity: 0.7;
+    margin-bottom: 0.75rem;
+  }
+
+  .service-card h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem;
+    color: var(--parchment);
+    margin-bottom: 0.75rem;
+    line-height: 1.3;
+  }
+
+  .service-card p {
+    font-size: 0.95rem;
+    line-height: 1.7;
+    color: var(--text-muted);
+    font-weight: 300;
+  }
+
+  .service-card ul {
+    list-style: none;
+    margin-top: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .service-card ul li {
+    font-size: 0.88rem;
+    color: var(--text-body);
+    font-weight: 400;
+    padding-left: 1.25rem;
+    position: relative;
+    line-height: 1.5;
+  }
+
+  .service-card ul li::before {
+    content: '—';
+    position: absolute;
+    left: 0;
+    color: var(--gold);
+    opacity: 0.5;
+  }
+
+  .services-cta-block {
+    padding: 2.5rem 3rem;
+    border: 1px solid rgba(201,168,76,0.15);
+    background: rgba(201,168,76,0.03);
+    border-radius: 3px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+  }
+
+  .services-cta-block .cta-text h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.25rem;
+    color: var(--parchment);
+    margin-bottom: 0.5rem;
+  }
+
+  .services-cta-block .cta-text p {
+    font-size: 0.95rem;
+    color: var(--text-muted);
+    font-weight: 300;
+  }
+
+  @media (max-width: 768px) {
+    .services-grid {
+      grid-template-columns: 1fr;
+    }
+    .services-cta-block {
+      flex-direction: column;
+      text-align: center;
+      padding: 2rem 1.5rem;
+    }
+    .services { padding: 5rem 1.5rem; }
+  }
+
+  /* ─── CONTACT ─── */
+  .contact {
+    padding: 7rem 2rem 5rem;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .contact-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: start;
+  }
+
+  .contact-info h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem;
+    color: var(--parchment);
+    margin-bottom: 1rem;
+  }
+
+  .contact-info p {
+    font-size: 0.95rem;
+    line-height: 1.8;
+    color: var(--text-muted);
+    font-weight: 300;
+    margin-bottom: 2rem;
+  }
+
+  .contact-detail {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+    color: var(--text-body);
+    font-size: 0.95rem;
+  }
+
+  .contact-detail svg {
+    width: 18px;
+    height: 18px;
+    color: var(--gold);
+    flex-shrink: 0;
+  }
+
+  .contact-detail a {
+    color: var(--text-body);
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+
+  .contact-detail a:hover {
+    color: var(--gold);
+  }
+
+  .contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+  .form-field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+
+  .form-field label {
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+
+  .form-field input,
+  .form-field textarea {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(201,168,76,0.12);
+    padding: 0.85rem 1rem;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.95rem;
+    color: var(--parchment);
+    border-radius: 2px;
+    transition: all 0.3s ease;
+    outline: none;
+  }
+
+  .form-field input:focus,
+  .form-field textarea:focus {
+    border-color: var(--gold);
+    background: rgba(201,168,76,0.04);
+    box-shadow: 0 0 0 3px rgba(201,168,76,0.06);
+  }
+
+  .form-field textarea {
+    resize: vertical;
+    min-height: 120px;
+  }
+
+  .form-field input::placeholder,
+  .form-field textarea::placeholder {
+    color: var(--text-muted);
+    opacity: 0.5;
+  }
+
+  .btn-submit {
+    align-self: flex-start;
+    margin-top: 0.5rem;
+  }
+
+  /* ─── FOOTER ─── */
+  footer {
+    text-align: center;
+    padding: 3rem 2rem;
+    border-top: 1px solid rgba(201,168,76,0.08);
+  }
+
+  .footer-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--parchment);
+    letter-spacing: 0.05em;
+    margin-bottom: 0.5rem;
+  }
+
+  .footer-logo span { color: var(--gold); }
+
+  .footer-motto {
+    font-family: 'Caveat', cursive;
+    font-size: 1.15rem;
+    color: var(--gold);
+    opacity: 0.7;
+    margin-bottom: 1.5rem;
+  }
+
+  .footer-copy {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    opacity: 0.6;
+  }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 768px) {
+    nav { padding: 1.25rem 1.5rem; }
+    nav.scrolled { padding: 0.85rem 1.5rem; }
+    .nav-links { display: none; }
+
+    .hero-cta-group {
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .mission-content {
+      grid-template-columns: 1fr;
+      gap: 3rem;
+    }
+
+    .goals-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .contact-wrapper {
+      grid-template-columns: 1fr;
+      gap: 3rem;
+    }
+
+    section { padding: 5rem 1.5rem; }
+    .goals { padding: 5rem 1.5rem; }
+    .contact { padding: 5rem 1.5rem 4rem; }
+  }
+
+  /* ─── SCROLL REVEAL ─── */
+  .reveal {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="nav">
+  <a href="#" class="nav-logo">Bruce <span>Animation <span> Studios </span></span></a>
+  <ul class="nav-links">
+    <li><a href="#mission">Mission</a></li>
+    <li><a href="#goals">Focus</a></li>
+    <li><a href="#approach">Services</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-line hero-line-1"></div>
+  <div class="hero-line hero-line-2"></div>
+  <div class="hero-line hero-line-3"></div>
+  <p class="hero-pretitle">Sydney, Australia</p>
+  <h1 class="hero-title">Bruce Animation <em>Studios</em></h1>
+  <p class="hero-subtitle">
+    Hand-drawn animation. AI-augmented production. Original stories.
+  </p>
+  <div class="hero-cta-group">
+    <a href="#goals" class="btn btn-primary">Our Current Focus</a>
+    <a href="#contact" class="btn btn-ghost">Get in Touch</a>
+  </div>
+  <div class="hero-scroll">
+    <span>Scroll</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<!-- MISSION -->
+<section class="mission" id="mission">
+  <div class="reveal">
+    <p class="section-label">I. Our Mission</p>
+    <h2 class="section-title">The next great animation studio<br>starts with a pencil.</h2>
+    <div class="divider"></div>
+  </div>
+  <div class="mission-content">
+    <div class="mission-text reveal">
+      <p>
+        Every major studio abandoned hand-drawn 2D animation. They consolidated into 3D pipelines, chased safe bets, and left behind the most emotionally powerful visual medium ever created. We see that as one of the greatest unclaimed opportunities in entertainment.
+      </p>
+      <p>
+        Bruce Animation Studios is building the studio that should exist. One that produces hand-drawn animated features, shorts, and series using AI-augmented workflows that compress production timelines by orders of magnitude. Not by replacing artists, but by eliminating the mechanical bottlenecks that made hand-drawn animation economically unviable at scale. The artist draws. The AI assists. The audience feels the difference.
+      </p>
+      <p>
+        But animation is only the beginning. We are building toward a future where we meet intersection of animation, storytelling, artifical intelligence, robotics, AR, VR, and so many more emerging technologies. The line where animated storytelling and interactive experience dissolves entirely and converges into something the entertainment industry has never seen.
+      </p>
+    </div>
+    <div class="mission-values reveal">
+      <div class="value-card">
+        <span class="value-number">01</span>
+        <h3>Craft Augmented, Never Replaced</h3>
+        <p>AI handles the mechanical. Humans handle the creativity. Every frame originates from an artist's hand and technology amplifies their output, it doesn't substitute their vision.</p>
+      </div>
+      <div class="value-card">
+        <span class="value-number">02</span>
+        <h3>Own Everything</h3>
+        <p>We create, develop, and retain our intellectual property. Original stories, original characters, original worlds all owned by the studio. This is how you build something that lasts.</p>
+      </div>
+      <div class="value-card">
+        <span class="value-number">03</span>
+        <h3>Economics as Competitive Advantage</h3>
+        <p>AI-augmented production isn't a cost-saving measure, it's what makes a new major animation studio structurally possible. We operate where others can't.</p>
+      </div>
+      <div class="value-card">
+        <span class="value-number">04</span>
+        <h3>Beyond the Screen</h3>
+        <p>AI, robotics, and emerging technologies will blur the lines between animated storytelling and interactive experiences. The vision extends far past traditional media.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CURRENT GOALS -->
+<section class="goals" id="goals">
+  <div class="goals-inner">
+    <div class="reveal">
+      <p class="section-label">II. Current Focus</p>
+      <h2 class="section-title">What We're Building Right Now</h2>
+      <div class="divider"></div>
+    </div>
+    <div class="goals-grid">
+      <div class="goal-item reveal">
+        <div class="goal-status status-active">Active</div>
+        <h3>The Animation Pipeline</h3>
+        <p>Developing proprietary AI in-betweening tools that let artists draw key poses while the system generates the frames between them. Preserving the hand-drawn aesthetic at a fraction of traditional production time and cost.</p>
+      </div>
+      <div class="goal-item reveal">
+        <div class="goal-status status-active">Active</div>
+        <h3>Studio Incubation</h3>
+        <p>Engaging with incubator programs and Sydney's startup ecosystem to accelerate development, secure early resources, and connect with the investor and mentor networks that will scale the studio.</p>
+      </div>
+      <div class="goal-item reveal">
+        <div class="goal-status status-active">Active</div>
+        <h3>Industry Network</h3>
+        <p>Building relationships across Sydney's animation industry with studios, training institutions, and professional bodies. The people we connect with now become the team we build with later.</p>
+      </div>
+      <div class="goal-item reveal">
+        <div class="goal-status status-active">Active</div>
+        <h3>First Revenue Pipeline</h3>
+        <p>Targeting Sydney's independent cinemas with custom animated pre-show content — a first-mover opportunity that generates real revenue while putting hand-drawn animation in front of live audiences from day one.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHAT WE DO -->
+<section class="services" id="approach">
+  <div class="services-inner">
+    <div class="reveal">
+      <p class="section-label">III. What We Do</p>
+      <h2 class="section-title">Hand-Drawn Animation<br>For Screens That Matter</h2>
+      <div class="divider"></div>
+      <p class="services-intro">
+        We produce original hand-drawn animated content using AI-augmented workflows — delivering the quality and emotional impact of traditional animation at timelines and budgets that actually work. Here's what we're making right now.
+      </p>
+    </div>
+    <div class="services-grid">
+      <div class="service-card reveal">
+        <p class="service-tag">For Independent Cinemas</p>
+        <h3>Custom Animated Pre-Show Content</h3>
+        <p>Give your audience something worth arriving early for. We produce bespoke hand-drawn animated shorts, bumpers, and pre-show sequences tailored to your venue's identity and programming — replacing generic filler with something audiences genuinely remember.</p>
+        <ul>
+          <li>Venue-branded animated intros and idents</li>
+          <li>Seasonal and event-specific short films</li>
+          <li>Animated program guides and intermission content</li>
+          <li>Series content that builds a loyal pre-show audience</li>
+        </ul>
+      </div>
+      <div class="service-card reveal">
+        <p class="service-tag">For Brands & Advertisers</p>
+        <h3>Animated Advertising That Stands Out</h3>
+        <p>In a world saturated with templated motion graphics and stock footage, hand-drawn animation cuts through. We create animated spots, branded content, and campaign visuals that feel crafted, human, and impossible to scroll past.</p>
+        <ul>
+          <li>Animated cinema ads and pre-roll spots</li>
+          <li>Social and digital campaign animation</li>
+          <li>Brand story and explainer films</li>
+          <li>Bespoke character and visual identity work</li>
+        </ul>
+      </div>
+      <div class="service-card reveal">
+        <p class="service-tag">Original Production</p>
+        <h3>Original Shorts & Series</h3>
+        <p>Beyond commissioned work, we develop and produce our own hand-drawn animated shorts and series — building a catalogue of original IP designed to screen at festivals, license to distributors, and reach audiences directly.</p>
+        <ul>
+          <li>Festival-targeted animated short films</li>
+          <li>Serialised animated content</li>
+          <li>Studio-owned IP developed in-house</li>
+          <li>Projects that prove the hand-drawn medium at scale</li>
+        </ul>
+      </div>
+      <div class="service-card reveal">
+        <p class="service-tag">The Advantage</p>
+        <h3>Why Hand-Drawn, Why Now</h3>
+        <p>No one else is offering this. Every major studio dropped hand-drawn animation. The agencies default to 3D renders and After Effects templates. We deliver something audiences haven't seen in years — and the emotional response is immediate. AI-augmented production means we do it at a price point and speed that competes.</p>
+        <ul>
+          <li>Distinctive aesthetic no competitor is offering</li>
+          <li>AI-augmented pipeline for competitive turnaround</li>
+          <li>Emotional resonance that CGI and motion graphics can't match</li>
+          <li>First-mover advantage in an underserved market</li>
+        </ul>
+      </div>
+    </div>
+    <div class="services-cta-block reveal">
+      <div class="cta-text">
+        <h3>Interested in working with us?</h3>
+        <p>Whether you run a cinema, manage a brand, or programme let's talk about what hand-drawn animation can do for you.</p>
+      </div>
+      <a href="#contact" class="btn btn-primary">Get in Touch</a>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <div class="reveal">
+    <p class="section-label">IV. Get in Touch</p>
+    <h2 class="section-title">Let's Talk</h2>
+    <div class="divider"></div>
+  </div>
+  <div class="contact-wrapper">
+    <div class="contact-info reveal">
+      <h3>Reach out</h3>
+      <p>
+        Animators, investors, collaborators, or anyone who believes hand-drawn animation deserves a future. We want to hear from you.
+      </p>
+      <div class="contact-detail">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" /></svg>
+        <a href="mailto:archie@bruceanimation.com">archie@bruceanimation.com</a>
+      </div>
+      <div class="contact-detail">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" /><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" /></svg>
+        <span>Sydney, Australia</span>
+      </div>
+    </div>
+    <form class="contact-form reveal" onsubmit="handleSubmit(event)">
+      <div class="form-field">
+        <label for="name">Name</label>
+        <input type="text" id="name" name="name" placeholder="Your name" required>
+      </div>
+      <div class="form-field">
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" placeholder="you@example.com" required>
+      </div>
+      <div class="form-field">
+        <label for="subject">Subject</label>
+        <input type="text" id="subject" name="subject" placeholder="What's this about?">
+      </div>
+      <div class="form-field">
+        <label for="message">Message</label>
+        <textarea id="message" name="message" placeholder="Tell us what's on your mind..." required></textarea>
+      </div>
+      <button type="submit" class="btn btn-primary btn-submit">Send Message →</button>
+    </form>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">BRUCE <span>ANIMATION</span> STUDIOS</div>
+  <div class="footer-motto">Drawn to Life</div>
+  <p class="footer-copy">&copy; 2026 Bruce Animation Studios. All rights reserved. Sydney, Australia.</p>
+</footer>
+
+<script>
+  // Scroll nav
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 60);
+  });
+
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 100);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  reveals.forEach(el => observer.observe(el));
+
+  // Contact form
+  function handleSubmit(e) {
+    e.preventDefault();
+    const btn = e.target.querySelector('.btn-submit');
+    btn.textContent = 'Message Sent \u2713';
+    btn.style.background = '#5ec26a';
+    setTimeout(() => {
+      btn.textContent = 'Send Message \u2192';
+      btn.style.background = '';
+      e.target.reset();
+    }, 3000);
+  }
+</script>
+
+</body>
+</html>
