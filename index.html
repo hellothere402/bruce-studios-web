@@ -3,7 +3,30 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Bruce Animation Studios — Drawn to Life</title>
+<title>Bruce Animation Studios — Hand-Drawn Animation, AI-Augmented</title>
+
+<!-- SEO -->
+<meta name="description" content="Bruce Animation Studios produces hand-drawn 2D animation using AI-augmented workflows. Custom animated content for independent cinemas, brands, and advertisers. Based in Sydney, Australia.">
+<meta name="keywords" content="hand-drawn animation, 2D animation, animation studio, Sydney animation, AI animation, animated advertising, cinema content, Bruce Animation Studios">
+<meta name="author" content="Bruce Animation Studios">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://bruceanimation.com/">
+
+<!-- Open Graph (Facebook, LinkedIn, iMessage, etc.) -->
+<meta property="og:title" content="Bruce Animation Studios — Drawn to Life">
+<meta property="og:description" content="Hand-drawn 2D animation, AI-augmented production. Custom animated content for cinemas, brands, and advertisers. Sydney, Australia.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://bruceanimation.com/">
+<meta property="og:site_name" content="Bruce Animation Studios">
+<meta property="og:locale" content="en_AU">
+
+<!-- Twitter / X Card -->
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Bruce Animation Studios — Drawn to Life">
+<meta name="twitter:description" content="Hand-drawn 2D animation, AI-augmented production. Custom animated content for cinemas, brands, and advertisers. Sydney, Australia.">
+
+<!-- Theme -->
+<meta name="theme-color" content="#0d0b0e">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=DM+Sans:wght@300;400;500;600&family=Caveat:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
@@ -517,147 +540,50 @@
     font-weight: 300;
   }
 
-  /* ─── SERVICES ─── */
-  .services {
-    padding: 7rem 2rem;
-    max-width: 100%;
-    background: linear-gradient(180deg, rgba(13,11,14,1) 0%, rgba(42,36,40,0.4) 50%, rgba(13,11,14,1) 100%);
-    border-top: 1px solid rgba(201,168,76,0.08);
-    border-bottom: 1px solid rgba(201,168,76,0.08);
-  }
-
-  .services-inner {
-    max-width: 1100px;
-    margin: 0 auto;
-  }
-
-  .services-intro {
-    font-size: 1.1rem;
-    font-weight: 300;
-    line-height: 1.8;
-    max-width: 700px;
-    margin-bottom: 3.5rem;
-  }
-
-  .services-grid {
+  /* ─── APPROACH ─── */
+  .approach-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 2rem;
-    margin-bottom: 3.5rem;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2.5rem;
+    margin-top: 1rem;
   }
 
-  .service-card {
-    padding: 2.5rem;
-    border: 1px solid rgba(201,168,76,0.08);
-    background: rgba(13,11,14,0.7);
-    border-radius: 3px;
-    transition: all 0.4s ease;
+  .approach-card {
+    text-align: center;
+    padding: 2.5rem 1.5rem;
     position: relative;
-    overflow: hidden;
   }
 
-  .service-card::before {
+  .approach-card::before {
     content: '';
     position: absolute;
-    top: 0; left: 0; bottom: 0;
-    width: 3px;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 40px;
+    height: 2px;
     background: var(--gold);
-    transform: scaleY(0);
-    transition: transform 0.4s ease;
-    transform-origin: top;
+    opacity: 0.4;
   }
 
-  .service-card:hover {
-    border-color: rgba(201,168,76,0.2);
-    background: rgba(201,168,76,0.03);
+  .approach-icon {
+    font-size: 2.5rem;
+    margin: 1.5rem 0 1.25rem;
+    display: block;
   }
 
-  .service-card:hover::before {
-    transform: scaleY(1);
-  }
-
-  .service-card .service-tag {
-    font-family: 'Caveat', cursive;
-    font-size: 1rem;
-    color: var(--gold);
-    opacity: 0.7;
-    margin-bottom: 0.75rem;
-  }
-
-  .service-card h3 {
+  .approach-card h3 {
     font-family: 'Playfair Display', serif;
-    font-size: 1.3rem;
+    font-size: 1.15rem;
     color: var(--parchment);
     margin-bottom: 0.75rem;
-    line-height: 1.3;
   }
 
-  .service-card p {
-    font-size: 0.95rem;
+  .approach-card p {
+    font-size: 0.9rem;
     line-height: 1.7;
     color: var(--text-muted);
     font-weight: 300;
-  }
-
-  .service-card ul {
-    list-style: none;
-    margin-top: 1.25rem;
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-  }
-
-  .service-card ul li {
-    font-size: 0.88rem;
-    color: var(--text-body);
-    font-weight: 400;
-    padding-left: 1.25rem;
-    position: relative;
-    line-height: 1.5;
-  }
-
-  .service-card ul li::before {
-    content: '—';
-    position: absolute;
-    left: 0;
-    color: var(--gold);
-    opacity: 0.5;
-  }
-
-  .services-cta-block {
-    padding: 2.5rem 3rem;
-    border: 1px solid rgba(201,168,76,0.15);
-    background: rgba(201,168,76,0.03);
-    border-radius: 3px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 2rem;
-  }
-
-  .services-cta-block .cta-text h3 {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.25rem;
-    color: var(--parchment);
-    margin-bottom: 0.5rem;
-  }
-
-  .services-cta-block .cta-text p {
-    font-size: 0.95rem;
-    color: var(--text-muted);
-    font-weight: 300;
-  }
-
-  @media (max-width: 768px) {
-    .services-grid {
-      grid-template-columns: 1fr;
-    }
-    .services-cta-block {
-      flex-direction: column;
-      text-align: center;
-      padding: 2rem 1.5rem;
-    }
-    .services { padding: 5rem 1.5rem; }
   }
 
   /* ─── CONTACT ─── */
@@ -823,6 +749,11 @@
       grid-template-columns: 1fr;
     }
 
+    .approach-grid {
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+
     .contact-wrapper {
       grid-template-columns: 1fr;
       gap: 3rem;
@@ -854,7 +785,7 @@
   <ul class="nav-links">
     <li><a href="#mission">Mission</a></li>
     <li><a href="#goals">Focus</a></li>
-    <li><a href="#approach">Services</a></li>
+    <li><a href="#approach">Vision</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
 </nav>
@@ -895,7 +826,7 @@
         Bruce Animation Studios is building the studio that should exist. One that produces hand-drawn animated features, shorts, and series using AI-augmented workflows that compress production timelines by orders of magnitude. Not by replacing artists, but by eliminating the mechanical bottlenecks that made hand-drawn animation economically unviable at scale. The artist draws. The AI assists. The audience feels the difference.
       </p>
       <p>
-        But animation is only the beginning. We are building toward a future where we meet intersection of animation, storytelling, artifical intelligence, robotics, AR, VR, and so many more emerging technologies. To the point where animated storytelling and interactive experience dissolves entirely and converges into something the entertainment industry has never seen.
+        But animation is only the beginning. We are building toward a future where we meet intersection of animation, storytelling, artifical intelligence, robotics, AR, VR, and so many more emerging technologies. The line where animated storytelling and interactive experience dissolves entirely and converges into something the entertainment industry has never seen.
       </p>
     </div>
     <div class="mission-values reveal">
@@ -939,8 +870,8 @@
       </div>
       <div class="goal-item reveal">
         <div class="goal-status status-active">Active</div>
-        <h3>Democratisation of Technology</h3>
-        <p>Monetising and commercialising our AI-augmented animation tools to make them accessible to a wider range of creators and studios.</p>
+        <h3>Studio Incubation</h3>
+        <p>Engaging with incubator programs and Sydney's startup ecosystem to accelerate development, secure early resources, and connect with the investor and mentor networks that will scale the studio.</p>
       </div>
       <div class="goal-item reveal">
         <div class="goal-status status-active">Active</div>
@@ -950,74 +881,34 @@
       <div class="goal-item reveal">
         <div class="goal-status status-active">Active</div>
         <h3>First Revenue Pipeline</h3>
-        <p>Targeting Sydney's independent cinemas with custom animated pre-show content, so that we can generate real revenue while putting hand-drawn animation in front of live audiences from day one.</p>
+        <p>Targeting Sydney's independent cinemas with custom animated pre-show content — a first-mover opportunity that generates real revenue while putting hand-drawn animation in front of live audiences from day one.</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- WHAT WE DO -->
-<section class="services" id="approach">
-  <div class="services-inner">
-    <div class="reveal">
-      <p class="section-label">III. What We Do</p>
-      <h2 class="section-title">Hand-Drawn Animation<br>For Screens That Matter</h2>
-      <div class="divider"></div>
-      <p class="services-intro">
-        We produce original hand-drawn animated content using AI-augmented workflows. Delivering the quality and emotional impact of traditional animation at timelines and budgets that actually work. Here's what we're making right now.
-      </p>
+<!-- VISION -->
+<section id="approach">
+  <div class="reveal">
+    <p class="section-label">III. The Trajectory</p>
+    <h2 class="section-title">Where This Goes</h2>
+    <div class="divider"></div>
+  </div>
+  <div class="approach-grid">
+    <div class="approach-card reveal">
+      <span class="approach-icon">✏️</span>
+      <h3>Animated Features & Series</h3>
+      <p>A growing catalogue of original hand-drawn content owned entirely by the studio, and produced at a pace the industry hasn't seen from hand-drawn animation in decades.</p>
     </div>
-    <div class="services-grid">
-      <div class="service-card reveal">
-        <p class="service-tag">For Independent Cinemas</p>
-        <h3>Custom Animated Pre-Show Content</h3>
-        <p>Give your audience something worth arriving early for. We produce bespoke hand-drawn animated shorts, bumpers, and pre-show sequences tailored to your venue's identity and programming. Replacing the generic filler with something audiences genuinely remember.</p>
-        <ul>
-          <li>Venue-branded animated intros and idents</li>
-          <li>Seasonal and event-specific short films</li>
-          <li>Animated program guides and intermission content</li>
-          <li>Series content that builds a loyal pre-show audience</li>
-        </ul>
-      </div>
-      <div class="service-card reveal">
-        <p class="service-tag">For Brands & Advertisers</p>
-        <h3>Animated Advertising That Stands Out</h3>
-        <p>In a world saturated with templated motion graphics and stock footage, hand-drawn animation cuts through. We create animated spots, branded content, and campaign visuals that feel crafted, human, and impossible to scroll past.</p>
-        <ul>
-          <li>Animated cinema ads and pre-roll spots</li>
-          <li>Social and digital campaign animation</li>
-          <li>Brand story and explainer films</li>
-          <li>Bespoke character and visual identity work</li>
-        </ul>
-      </div>
-      <div class="service-card reveal">
-        <p class="service-tag">Original Production</p>
-        <h3>Original Shorts & Series</h3>
-        <p>Beyond commissioned work, we will develop and produce longer length content, so we can build a catalogue of original IP designed to screen at bigger audiences, license to distributors, and reach audiences directly.</p>
-        <ul>
-          <li>Serialised animated content</li>
-          <li>Studio-owned IP developed in-house</li>
-          <li>Projects that prove the hand-drawn medium at scale</li>
-        </ul>
-      </div>
-      <div class="service-card reveal">
-        <p class="service-tag">The Advantage</p>
-        <h3>Why Hand-Drawn, Why Now</h3>
-        <p>No one else is offering this. Every major studio dropped hand-drawn animation. The agencies default to 3D renders and After Effects templates. We deliver something audiences haven't seen in years. AI-augmented production means we do it at a price point and speed that competes.</p>
-        <ul>
-          <li>Distinctive aesthetic no competitor is offering</li>
-          <li>AI-augmented pipeline for competitive turnaround</li>
-          <li>Emotional resonance that can't be matched</li>
-          <li>First-mover advantage in an underserved market</li>
-        </ul>
-      </div>
+    <div class="approach-card reveal">
+      <span class="approach-icon">🧠</span>
+      <h3></h3>
+      <p>Moving beyond the screen. Collapsing the boundary between storytelling and lived experience.</p>
     </div>
-    <div class="services-cta-block reveal">
-      <div class="cta-text">
-        <h3>Interested in working with us?</h3>
-        <p>Whether you run a cinema, manage a brand, or programme let's talk about what hand-drawn animation can do for you.</p>
-      </div>
-      <a href="#contact" class="btn btn-primary">Get in Touch</a>
+    <div class="approach-card reveal">
+      <span class="approach-icon">⚙️</span>
+      <h3>Robotics & Physical Presence</h3>
+      <p>Animated worlds brought into physical space. The long-term convergence of animation, AI, and robotics — extending characters and stories into the real world in ways that don't yet have a category.</p>
     </div>
   </div>
 </section>
@@ -1069,6 +960,7 @@
 <!-- FOOTER -->
 <footer>
   <div class="footer-logo">BRUCE <span>ANIMATION</span> STUDIOS</div>
+  <div class="footer-motto">Drawn to Life</div>
   <p class="footer-copy">&copy; 2026 Bruce Animation Studios. All rights reserved. Sydney, Australia.</p>
 </footer>
 
@@ -1095,10 +987,10 @@
   function handleSubmit(e) {
     e.preventDefault();
     const btn = e.target.querySelector('.btn-submit');
-    btn.textContent = 'Message Sent \u2713';
+    btn.textContent = 'Message Sent ✓';
     btn.style.background = '#5ec26a';
     setTimeout(() => {
-      btn.textContent = 'Send Message \u2192';
+      btn.textContent = 'Send Message →';
       btn.style.background = '';
       e.target.reset();
     }, 3000);
