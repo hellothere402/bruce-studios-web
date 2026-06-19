@@ -28,6 +28,12 @@
 <meta name="twitter:title" content="Bruce Animation Studios">
 <meta name="twitter:description" content="Hand-drawn 2D animation, AI-augmented production.">
 <meta name="theme-color" content="#0a0a0c">
+
+<!-- Favicon -->
+<link rel="icon" type="image/svg+xml" href="/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
@@ -132,6 +138,7 @@ nav.scrolled {
 }
 .btn-gold { background: var(--gold); color: var(--bg); }
 .btn-gold:hover { filter: brightness(1.15); transform: translateY(-1px); }
+.btn-gold:disabled { opacity: 0.6; cursor: default; transform: none; filter: none; }
 .btn-ghost { background: transparent; color: var(--white); border: 1px solid var(--border); }
 .btn-ghost:hover { border-color: var(--gold); color: var(--gold); }
 
@@ -230,7 +237,7 @@ nav.scrolled {
   background: var(--bg);
   border: 1px solid var(--border);
   border-radius: 4px;
-  padding: 2.5rem 2rem;
+  padding: 1rem;
   margin-top: 1.5rem;
   overflow: hidden;
 }
@@ -240,31 +247,18 @@ nav.scrolled {
   background: radial-gradient(ellipse at center, var(--gold-soft) 0%, transparent 70%);
   pointer-events: none;
 }
-.pipeline-row {
-  display: flex; align-items: center;
-  justify-content: center; gap: 1rem;
-  position: relative; z-index: 1;
+/* FLICKER VIDEO REEL */
+.flicker-reel {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 3px;
+  position: relative;
+  z-index: 1;
+  background: #000;
 }
-.pipeline-step { text-align: center; flex: 0 0 auto; }
-.pipeline-step .step-icon {
-  width: 52px; height: 52px; border-radius: 50%;
-  display: flex; align-items: center; justify-content: center;
-  margin: 0 auto 0.5rem; font-size: 1.2rem;
-  border: 1px solid var(--border); background: var(--bg-raised);
-}
-.pipeline-step .step-label {
-  font-size: 0.65rem; font-weight: 500;
-  letter-spacing: 0.06em; text-transform: uppercase;
-  color: var(--dim);
-}
-.pipeline-step.ai-step .step-icon {
-  border-color: rgba(201,168,76,0.3);
-  background: var(--gold-soft);
-}
-.pipeline-step.ai-step .step-label { color: var(--gold); }
-.pipeline-arrow { color: var(--border); font-size: 1.1rem; flex: 0 0 auto; }
 .pipeline-caption {
-  text-align: center; margin-top: 1.5rem;
+  text-align: center; margin-top: 1.25rem;
   font-size: 0.8rem; color: var(--dim);
   font-weight: 300; position: relative; z-index: 1;
 }
@@ -342,6 +336,9 @@ nav.scrolled {
 .c-form input:focus, .c-form textarea:focus { border-color: var(--gold); }
 .c-form textarea { resize: vertical; min-height: 90px; }
 .c-form input::placeholder, .c-form textarea::placeholder { color: var(--dim); opacity: 0.35; }
+/* Honeypot — hidden from people, catches bots */
+.hp-field { position: absolute; left: -9999px; top: auto; width: 1px; height: 1px; overflow: hidden; }
+.form-status { font-size: 0.82rem; font-weight: 300; min-height: 1.1em; margin-top: 0.25rem; }
 
 /* FOOTER */
 footer {
@@ -381,6 +378,12 @@ footer {
 
 .rv { opacity: 0; transform: translateY(25px); transition: all 0.6s ease; }
 .rv.vis { opacity: 1; transform: translateY(0); }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .rv { opacity: 1; transform: none; transition: none; }
+  .hero-name, .hero-line, .hero-ctas { animation: none; opacity: 1; }
+}
 </style>
 </head>
 <body>
@@ -447,23 +450,11 @@ footer {
         <p>You draw the key poses. Flicker generates the in-between frames using AI models trained specifically for 2D animation. The output preserves your hand-drawn line quality and ready for your pipeline.</p>
         <p>Traditional production requires 8–16 in-between drawings for every second of animation. Flicker generates them automatically, cutting the most labour-intensive stage of 2D production from weeks to hours.</p>
         <div class="interp-visual">
-          <div class="pipeline-row">
-            <div class="pipeline-step">
-              <div class="step-icon">✏️</div>
-              <span class="step-label">Key Pose A</span>
-            </div>
-            <span class="pipeline-arrow">→</span>
-            <div class="pipeline-step ai-step">
-              <div class="step-icon">⚡</div>
-              <span class="step-label">Flicker</span>
-            </div>
-            <span class="pipeline-arrow">→</span>
-            <div class="pipeline-step">
-              <div class="step-icon">✏️</div>
-              <span class="step-label">Key Pose B</span>
-            </div>
-          </div>
-          <p class="pipeline-caption">Two key drawings in → <strong>smooth animation</strong> out</p>
+          <video class="flicker-reel" autoplay muted loop playsinline preload="metadata">
+            <source src="/Video Project 6 2.mp4" type="video/mp4">
+            <source src="/Video Project 6 2.mp4" type="video/webm">
+          </video>
+          <p class="pipeline-caption">Flicker in action — <strong>key poses in, in-betweens out</strong></p>
         </div>
       </div>
     </div>
@@ -521,6 +512,12 @@ footer {
       <div><label for="name">Name</label><input type="text" id="name" placeholder="Your name" required></div>
       <div><label for="email">Email</label><input type="email" id="email" placeholder="you@example.com" required></div>
       <div><label for="message">Message</label><textarea id="message" placeholder="What's on your mind?" required></textarea></div>
+      <!-- Honeypot: real people never see or fill this; bots do. -->
+      <div class="hp-field" aria-hidden="true">
+        <label for="company">Company</label>
+        <input type="text" id="company" name="company" tabindex="-1" autocomplete="off">
+      </div>
+      <p class="form-status" id="formStatus" role="status" aria-live="polite"></p>
       <button type="submit" class="btn btn-gold" style="align-self:flex-start;margin-top:0.25rem">Send</button>
     </form>
   </div>
@@ -555,12 +552,52 @@ const obs = new IntersectionObserver((entries) => {
 }, { threshold: 0.1 });
 document.querySelectorAll('.rv').forEach(el => obs.observe(el));
 
-function handleSubmit(e) {
+async function handleSubmit(e) {
   e.preventDefault();
-  const btn = e.target.querySelector('button');
-  btn.textContent = 'Sent \u2713';
-  btn.style.background = '#4eca5c'; btn.style.color = '#0a0a0c';
-  setTimeout(() => { btn.textContent = 'Send'; btn.style.background = ''; btn.style.color = ''; e.target.reset(); }, 3000);
+  const form = e.target;
+  const btn = form.querySelector('button');
+  const status = document.getElementById('formStatus');
+  const original = btn.textContent;
+
+  btn.disabled = true;
+  btn.textContent = 'Sending…';
+  status.textContent = '';
+  status.style.color = '';
+
+  const payload = {
+    name: form.querySelector('#name').value,
+    email: form.querySelector('#email').value,
+    message: form.querySelector('#message').value,
+    company: form.querySelector('#company').value // honeypot
+  };
+
+  try {
+    const res = await fetch('/.netlify/functions/send-contact', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    });
+    if (!res.ok) throw new Error('Request failed');
+
+    btn.textContent = 'Sent ✓';
+    btn.style.background = '#4eca5c'; btn.style.color = '#0a0a0c';
+    status.textContent = 'Thanks — your message is on its way.';
+    status.style.color = '#4eca5c';
+    form.reset();
+  } catch (err) {
+    btn.textContent = 'Send';
+    btn.disabled = false;
+    status.textContent = 'Something went wrong. Please email archiejohnbruce@outlook.com directly.';
+    status.style.color = '#d9534f';
+    return;
+  }
+
+  setTimeout(() => {
+    btn.textContent = original;
+    btn.style.background = ''; btn.style.color = '';
+    btn.disabled = false;
+    status.textContent = '';
+  }, 4000);
 }
 </script>
 </body>
