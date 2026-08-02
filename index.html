@@ -577,7 +577,10 @@ async function handleSubmit(e) {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(payload)
     });
-    if (!res.ok) throw new Error('Request failed');
+    if (!res.ok) {
+      const body = await res.json().catch(() => ({}));
+      throw new Error(body.error || `Request failed (${res.status})`);
+    }
 
     btn.textContent = 'Sent ✓';
     btn.style.background = '#4eca5c'; btn.style.color = '#0a0a0c';
@@ -587,7 +590,9 @@ async function handleSubmit(e) {
   } catch (err) {
     btn.textContent = 'Send';
     btn.disabled = false;
-    status.textContent = 'Something went wrong. Please email archiejohnbruce@outlook.com directly.';
+    status.textContent = (err && err.message)
+      ? err.message
+      : 'Something went wrong. Please email archiejohnbruce@outlook.com directly.';
     status.style.color = '#d9534f';
     return;
   }

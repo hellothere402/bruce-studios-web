@@ -31,6 +31,16 @@ export default async (req) => {
     return json({ error: "Message is too long." }, 400);
   }
 
+  // Fail clearly if the email service isn't configured, rather than sending
+  // "Bearer undefined" to Resend and getting back an opaque 502.
+  if (!process.env.RESEND_API_KEY) {
+    console.error("[send-contact] RESEND_API_KEY is not set in the Netlify environment.");
+    return json(
+      { error: "Email service isn't configured yet. Please email archiejohnbruce@outlook.com directly." },
+      500
+    );
+  }
+
   const res = await fetch("https://api.resend.com/emails", {
     method: "POST",
     headers: {
